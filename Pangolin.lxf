@@ -1,0 +1,301 @@
+{
+  /* Pangolin puppet by Colossal Collective 
+   * Copyright 2022 Justin Belcher and Colossal Collective
+   */
+  
+  label: "Pangolin",
+  tag: "pangolin",
+  
+  "parameters": {
+  	"host": { type: "string", default: "192.168.111.69" },
+    "protocol": { type: "string", default: "sacn", options: ["artnet", "sacn"] },
+    "byteOrder": { type: "string", default: "GRB", options: ["RGB","GRB","RBG","BGR","BRG","GBR"] },
+	"ribSpacing": { type: "float", default: 18 },
+	"scaleSpacing": { type: "float", default: 16 },
+	"scaleTilt": { type: "float", default: 20 },
+	"ribRadius1": { type: "float", default: 17 },
+	"ribRadius2": { type: "float", default: 20 },
+	"ribRadius3": { type: "float", default: 27 },
+	"ribRadius4": { type: "float", default: 32 },
+	"ribRadius5": { type: "float", default: 33 },
+	"ribRadius6": { type: "float", default: 34 },
+	"ribRadius7": { type: "float", default: 28 },
+	"ribRadius8": { type: "float", default: 20 },
+	"ribRadius9": { type: "float", default: 18 },
+	"ribRadius10": { type: "float", default: 15 },
+	"ribRadius11": { type: "float", default: 15 },
+	"ribRadius12": { type: "float", default: 15 },
+	"ribRadius13": { type: "float", default: 15 },
+	"ribRadius14": { type: "float", default: 15 },
+	"ribRadius15": { type: "float", default: 15 },
+	"ribRadius16": { type: "float", default: 15 },
+	"ribRadius17": { type: "float", default: 15 },
+	"ribRadius18": { type: "float", default: 15 }
+  },
+  
+  transforms: [
+    { yaw: "90" }  
+  ],
+  
+  /*
+  meta: {
+  	"isTopLevelScope": "True",
+	"scopeMap": "
+		S1;S2;S3 @ AllSquares |
+		scale @ AllScales
+		scale.
+		"
+  },
+  */
+    
+  "components": [
+	
+	/* TO DO
+	 * -Need 14in from beginning of scale to rib	
+	 */
+	
+    /* Rib 1: 4 scales, ch27&28 */
+	{ type: "PangolinScale",
+      instances: 4,
+      transforms: [
+        { "z": "9" },
+		{ "y": "0" },
+        { "roll": "90+($scaleSpacing*180/(rad(180)*$ribRadius1))*($instance-(($instances-1)/2))" },
+        { "x": "$ribRadius1" },
+		{ "yaw": "-90+${scaleTilt}" }
+      ],
+	  tags: ["rib","rib1"]
+	  ,enableOutput: true, universe: "27+($instance/3)", channel: "$instance%3*56*3"
+	},
+	
+
+    /* Rib 2: 5 scales, ch25 & 26 */
+	{ type: "PangolinScale",
+	  id: "rib4",
+      instances: 5,
+      transforms: [
+        { "z": "30" },
+		{ "y": "0" },
+        { "roll": "90+($scaleSpacing*180/(rad(180)*$ribRadius2))*($instance-(($instances-1)/2))" },
+        { "x": "$ribRadius2" },
+		{ "yaw": "-90+${scaleTilt}" }
+      ],
+	  tags: ["rib","rib2"] 
+	  ,enableOutput: true, universe: "25+($instance/3)", channel: "$instance%3*56*3"
+	},
+	
+	
+    /* Rib 3: 6 scales, ch22 & 23 */
+	{ type: "PangolinScale",
+      id: "rib5",
+      instances: 6,
+      transforms: [
+        { "z": "50" },
+		{ "y": "0" },
+        { "roll": "90+($scaleSpacing*180/(rad(180)*$ribRadius3))*($instance-(($instances-1)/2))" },
+        { "x": "$ribRadius3" },
+		{ "yaw": "-90+${scaleTilt}" }
+      ],
+	  tags: ["rib","rib3"]
+	  ,enableOutput: true, universe: "22+($instance/3)", channel: "$instance%3*56*3"
+	},
+	
+	
+    /* Rib 4: 7 scales, ch19-21 */
+	{ type: "PangolinScale",
+      instances: 7,
+      transforms: [
+        { "z": "69" },
+		{ "y": "0" },
+        { "roll": "90+($scaleSpacing*180/(rad(180)*$ribRadius4))*($instance-(($instances-1)/2))" },
+        { "x": "$ribRadius4" },
+		{ "yaw": "-90+${scaleTilt}" }
+      ],
+	  tags: ["rib","rib4"] 
+	  ,enableOutput: true, universe: "19+($instance/3)", channel: "$instance%3*56*3"
+	},
+
+
+    /* Rib 5: 6 scales, ch16 & 18 */
+	{ type: "PangolinScale",
+      instances: 6,
+      transforms: [
+        { "z": "89" },
+		{ "y": "0" },
+        { "roll": "90+($scaleSpacing*180/(rad(180)*$ribRadius5))*($instance-(($instances-1)/2))" },
+        { "x": "$ribRadius5" },
+		{ "yaw": "-90+${scaleTilt}" }
+      ],
+	  tags: ["rib","rib5"] 
+	  ,enableOutput: true, universe: "16+(($instance/3))", channel: "$instance%3*56*3"
+	},
+	
+	
+    /* Rib 6: 7 scales, ch13-15, 9.5in higher */
+	{ type: "PangolinScale",
+      instances: 7,
+      transforms: [
+        { "z": "108" },
+		{ "y": "9.5" },
+        { "roll": "90+($scaleSpacing*180/(rad(180)*$ribRadius6))*($instance-(($instances-1)/2))" },
+        { "x": "$ribRadius6" },
+		{ "yaw": "-90+${scaleTilt}" }
+      ],
+	  tags: ["rib","rib6"] 
+	  ,enableOutput: true, universe: "13+($instance/3)", channel: "$instance%3*56*3"
+	},
+	
+	
+    /* Rib 7: 6 scales, ch11&12 */
+	{ type: "PangolinScale",
+      instances: 6,
+      transforms: [
+        { "z": "129" },
+		{ "y": "0" },
+        { "roll": "90+($scaleSpacing*180/(rad(180)*$ribRadius7))*($instance-(($instances-1)/2))" },
+        { "x": "$ribRadius7" },
+		{ "yaw": "-90+${scaleTilt}" }
+      ],
+	  tags: ["rib","rib7"] 
+	  ,enableOutput: true, universe: "11+($instance/3)", channel: "$instance%3*56*3"
+	},
+	
+	
+    /* Rib 8: 5 scales, ch9&10 */
+	{ type: "PangolinScale",
+      instances: 5,
+      transforms: [
+        { "z": "150" },
+		{ "y": "9.5" },
+        { "roll": "90+($scaleSpacing*180/(rad(180)*$ribRadius8))*($instance-(($instances-1)/2))" },
+        { "x": "$ribRadius8" },
+		{ "yaw": "-90+${scaleTilt}" }
+      ],
+	  tags: ["rib","rib8"] 
+	  ,enableOutput: true, universe: "9+($instance/3)", channel: "$instance%3*56*3"
+	},
+	
+	
+    /* Rib 9: 4 scales, ch7&8 Beginning of pivot */
+	{ type: "PangolinScale",
+      instances: 4,
+      transforms: [
+        { "z": "170" },
+		{ "y": "0" },
+        { "roll": "90+($scaleSpacing*180/(rad(180)*$ribRadius9))*($instance-(($instances-1)/2))" },
+        { "x": "$ribRadius9" },
+		{ "yaw": "-90+${scaleTilt}" }
+      ],
+	  tags: ["rib","rib9"]
+	  ,enableOutput: true, universe: "7+($instance/3)", channel: "$instance%3*56*3"
+	},
+
+
+    /* Rib 10: 3 scales, ch6 */
+	{ type: "PangolinScale",
+      id: "rib11",
+      instances: 3,
+      transforms: [
+        { "z": "195" },
+		{ "y": "0" },
+        { "roll": "90+($scaleSpacing*180/(rad(180)*$ribRadius10))*($instance-(($instances-1)/2))" },
+        { "x": "$ribRadius10" },
+		{ "yaw": "-90+${scaleTilt}" }
+      ],
+	  tags: ["rib","rib10"]
+	  ,enableOutput: true, universe: "6+($instance/3)", channel: "$instance%3*56*3"
+	},
+
+
+    /* Rib 11: 2 scales,ch5 */
+	{ type: "PangolinScale",
+      instances: 2,
+      transforms: [
+        { "z": "220" },
+		{ "y": "0" },
+        { "roll": "90+($scaleSpacing*180/(rad(180)*$ribRadius11))*($instance-(($instances-1)/2))" },
+        { "x": "$ribRadius11" },
+		{ "yaw": "-90+${scaleTilt}" }
+      ],
+	  tags: ["rib","rib11"]
+	  ,enableOutput: true, universe: "5+($instance/3)", channel: "$instance%3*56*3"
+	},
+
+
+    /* Rib 12: 3 scales, ch4 */
+	{ type: "PangolinScale",
+      instances: 3,
+      transforms: [
+        { "z": "245" },
+		{ "y": "0" },
+        { "roll": "90+($scaleSpacing*180/(rad(180)*$ribRadius12))*($instance-(($instances-1)/2))" },
+        { "x": "$ribRadius12" },
+		{ "yaw": "-90+${scaleTilt}" }
+      ],
+	  tags: ["rib","rib12"]
+	  ,enableOutput: true, universe: "4+($instance/3)", channel: "$instance%3*56*3"
+	},
+
+
+    /* Rib 13: 2 scales */
+	{ type: "PangolinScale",
+      instances: 2,
+      transforms: [
+        { "z": "270" },
+		{ "y": "0" },
+        { "roll": "90+($scaleSpacing*180/(rad(180)*$ribRadius13))*($instance-(($instances-1)/2))" },
+        { "x": "$ribRadius13" },
+		{ "yaw": "-90+${scaleTilt}" }
+      ],
+	  tags: ["rib","rib13"]
+	  ,enableOutput: true, universe: "3+($instance/3)", channel: "$instance%3*56*3"
+	},
+
+
+    /* Rib 14: 3 scales */
+	{ type: "PangolinScale",
+      instances: 3,
+      transforms: [
+        { "z": "295" },
+		{ "y": "0" },
+        { "roll": "90+($scaleSpacing*180/(rad(180)*$ribRadius14))*($instance-(($instances-1)/2))" },
+        { "x": "$ribRadius14" },
+		{ "yaw": "-90+${scaleTilt}" }
+      ],
+	  tags: ["rib","rib14"]
+	  ,enableOutput: true, universe: "2+($instance/3)", channel: "$instance%3*56*3"
+	},
+
+
+    /* Rib 15: 2 scales */
+	{ type: "PangolinScale",
+      instances: 2,
+      transforms: [
+        { "z": "315" },
+		{ "y": "0" },
+        { "roll": "90+($scaleSpacing*180/(rad(180)*$ribRadius15))*($instance-(($instances-1)/2))" },
+        { "x": "$ribRadius15" },
+		{ "yaw": "-90+${scaleTilt}" }
+      ],
+	  tags: ["rib","rib15"]
+	  ,enableOutput: true, universe: "1+($instance/3)", channel: "$instance%3*56*3"
+	}
+
+
+    /* Rib 16: 1 scales 
+	{ type: "PangolinScale",
+      instances: 1,
+      transforms: [
+        { "z": "340" },
+		{ "y": "0" },
+        { "roll": "90+($scaleSpacing*180/(rad(180)*$ribRadius16))*($instance-(($instances-1)/2))" },
+        { "x": "$ribRadius16" },
+		{ "yaw": "-90+${scaleTilt}" }
+      ],
+	  tags: ["rib","rib16"]
+	  ,enableOutput: true, universe: "0+($instance/3)", channel: "$instance%3*56*3"
+	}
+	*/
+	
+  ]
+}

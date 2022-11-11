@@ -1,0 +1,74 @@
+{
+  /* Scale for Pangolin puppet by Colossal Collective 
+   * Copyright 2022 Justin Belcher and Colossal Collective
+   */
+   
+  label: "PangolinScale",
+  tag: "scale",
+  
+  "parameters": {
+	"edgePixelsTotal": { type: "int", default: 55 },
+	"e1Pixels": { type: "int", default: 13 },
+	"e2Pixels": { type: "int", default: 15 },
+	"e3Pixels": { type: "int", default: 14 },
+	"lenTotal": { type: "float", default: 33 },
+	"lenInner": { type: "float", default: 6 },
+	"lenCenter": { type: "float", default: 23 },
+	"lenOuter": { type: "float", default: 29.5 },
+	"widthInner": { type: "float", default: 15.5 },
+	"widthOuter": { type: "float", default: 18 },
+	"spacing": { type: "float", default: .65 },
+	
+	"enableOutput": { type: "boolean", default: false },
+  	"host": { type: "string", default: "192.168.111.69" },
+    "protocol": { type: "string", default: "sacn", options: ["artnet", "sacn"] },
+  	"universe": { type: "int", default: 1 },
+	"channel": { type: "int", default: 0 },
+	"byteOrder": { type: "string", default: "GRB", options: ["RGB","GRB","RBG","BGR","BRG","GBR"] }
+  },
+
+  "components": [
+
+    /* Edge 1 */
+    { type: "strip", "numPoints": "${e1Pixels}", "spacing": "${spacing}", 
+      "x": "${lenOuter}", "y": "0-${widthOuter}/2", "roll": "180-atan(((${widthOuter}-${widthInner})/2)/(${lenOuter}-${lenInner}))", 
+      "reverse": true,
+	  tags: ["edge","e1"] },
+	
+	/* Edge 2 */
+    { type: "strip", "numPoints": "${e2Pixels}", "spacing": "${spacing}",
+      "x": "${lenTotal}", "y": 0, "roll": "270-atan((${lenTotal}-${lenOuter})/(${widthOuter}/2))",
+      "reverse": true,
+	  tags: ["edge","e2"] },
+	
+	/* Edge 3 */
+    { type: "strip", "numPoints": "${e3Pixels}", "spacing": "${spacing}",
+      "x": "${lenTotal}", "y": 0, "roll": "90+atan((${lenTotal}-${lenOuter})/(${widthOuter}/2))",
+      transforms: [ { x: "$spacing" } ],
+	  tags: ["edge","e3"] },
+	
+	/* Edge 4 */
+    { type: "strip", "numPoints": "${edgePixelsTotal}-${e1Pixels}-${e2Pixels}-${e3Pixels}", "spacing": "${spacing}",
+      "x": "${lenOuter}", "y": "${widthOuter}/2", "roll": "180+atan(((${widthOuter}-${widthInner})/2)/(${lenOuter}-${lenInner}))",
+	  tags: ["edge","e4"] },
+
+	/* Center Pixel */
+    { type: "point", "x": "${lenCenter}", "y": 0, "z": 0,
+	  tags: ["center","c"] }	
+  ],
+  
+  /* Output for debug mode, ie adding a scale fixture directly to the model.  Normally outputs will be defined on the parent Pangolin fixture */
+  "outputs": [ 
+    { enabled: "$enableOutput", host: "$host", protocol: "$protocol", 
+	  universe: "$universe", 
+	  channel: "$channel",
+      segments: [
+        { start: 0, num: 13, byteOrder: "GRB", reverse: true },
+	    { start: 13, num: 15, byteOrder: "GRB", reverse: true },
+	    { start: 28, num: 14, byteOrder: "GRB" },
+	    { start: 42, num: 13, byteOrder: "GRB" },
+	    { start: 55, num: 1 }
+      ]
+	}
+  ]
+}
