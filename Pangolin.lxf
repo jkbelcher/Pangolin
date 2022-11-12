@@ -37,16 +37,34 @@
     { yaw: "90" }  
   ],
   
-  /*
   meta: {
   	"isTopLevelScope": "True",
 	"scopeMap": "
-		S1;S2;S3 @ AllSquares |
-		scale @ AllScales
-		scale.
+		scale.center @ Centers |
+		scale.edge @ Edges |
+		rib1;rib2;rib3;rib4;rib5;rib6;rib7;rib8;rib9;rib10;rib11;rib12;rib13;rib14;rib15 @ Ribs |
+		rib1[3],rib2[4],rib3[5],rib4[6];
+		rib1[2],rib2[3],rib3[4],rib4[5],rib5[5],rib6[6];
+		rib1[1],rib2[2],rib3[3],rib4[4],rib5[4],rib6[5],rib7[5];
+		rib1[0],rib2[1],rib3[2],rib4[3],rib5[3],rib6[4],rib7[4],rib8[4];
+		rib2[0],rib3[1],rib4[2],rib5[2],rib6[3],rib7[3],rib8[3],rib9[3];
+		rib3[0],rib4[1],rib5[1],rib6[2],rib7[2],rib8[2],rib9[2],rib10[2];
+		rib4[0],rib5[0],rib6[1],rib7[1],rib8[1],rib9[1],rib10[1],rib11[1],rib12[2];
+		rib6[0],rib7[0],rib8[0],rib9[0],rib10[0],rib11[0],rib12[1],rib13[1],rib14[2];
+		rib12[0],rib13[0],rib14[1],rib15[1];
+		rib14[0],rib15[0] @ DiagonalsLeft |
+		rib1[0],rib2[0],rib3[0],rib4[0];
+		rib1[1],rib2[1],rib3[1],rib4[1],rib5[0],rib6[0];
+		rib1[2],rib2[2],rib3[2],rib4[2],rib5[1],rib6[1],rib7[0];
+		rib1[3],rib2[3],rib3[3],rib4[3],rib5[2],rib6[2],rib7[1],rib8[0];
+		rib2[4],rib3[4],rib4[4],rib5[3],rib6[3],rib7[2],rib8[1],rib9[0];
+		rib3[5],rib4[5],rib5[4],rib6[4],rib7[3],rib8[2],rib9[1],rib10[0];
+		rib4[6],rib5[5],rib6[5],rib7[4],rib8[3],rib9[2],rib10[1],rib11[0],rib12[0];
+		rib6[6],rib7[5],rib8[4],rib9[3],rib10[2],rib11[1],rib12[1],rib13[0],rib14[0];
+		rib12[2],rib13[1],rib14[1],rib15[0];
+		rib14[2],rib15[1] @ DiagonalsRight
 		"
   },
-  */
     
   "components": [
 	
